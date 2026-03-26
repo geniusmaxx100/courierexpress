@@ -13,16 +13,21 @@
 <button onclick="login()">Login</button>
 
 <script type="module">
-function login() {
+import { auth } from "./firebase.js";
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-auth.js";
+
+window.login = function () {
   const email = document.getElementById("email").value;
   const password = document.getElementById("password").value;
 
-  if (email === "admin@global.com" && password === "123456") {
-    window.location.href = "admin.html";
-  } else {
-    alert("Invalid login");
-  }
-}
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => {
+      window.location.href = "admin.html";
+    })
+    .catch((error) => {
+      alert(error.message);
+    });
+};
 <script>
 
 </body>
